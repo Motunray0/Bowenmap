@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import {theme} from './src/Infrastructure/Theme/Index'
+import { ThemeProvider } from 'styled-components';
+import {useFonts as usePoppins, Poppins_400Regular} from '@expo-google-fonts/poppins'
+import { AppContextProvider } from './src/Services/Contexts/App.context';
+import { Navigation } from './src/Infrastructure/Navigation/Navigation';
+import {View, Text} from 'react-native'
+import 'react-native-gesture-handler';
 
-export default function App() {
+const App = () => {
+  const [poppinsHasLoaded] = usePoppins({
+    Poppins_400Regular
+  })
+
+  if(!poppinsHasLoaded){
+    return null
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <ThemeProvider theme={theme}>
+        <AppContextProvider>
+          <Navigation/>
+        </AppContextProvider>
+      </ThemeProvider>
+      <ExpoStatusBar style='auto'/>
+    </>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
