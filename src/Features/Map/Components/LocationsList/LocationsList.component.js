@@ -11,15 +11,20 @@ import {
 } from './LocationsList.style'
 import { useAppContext } from '../../../../Services/Hooks/useAppContext'
 
-const LocationsList = () => {
-    const {filteredLocations, setCurrentLocation} = useAppContext()
+const LocationsList = ({navigation}) => {
+    const {filteredLocations, setDestination} = useAppContext()
+
+    const handleSelection = (item) => {
+        setDestination(item)
+        navigation.navigate("location", {location: item})
+    }
 
     const renderItem = ({item}) => {
         return (
-            <StyledTouchable onPress={()=>setCurrentLocation(item)}>
+            <StyledTouchable onPress={()=>handleSelection(item)}>
                 <StyledListItem>
-                    <StyledImage/>
-                    <StyledName></StyledName>
+                    <StyledImage source={item?.image}/>
+                    <StyledName>{item?.name}</StyledName>
                 </StyledListItem>
             </StyledTouchable>
         )
@@ -28,7 +33,7 @@ const LocationsList = () => {
     const renderEmptyComponent = () => {
         return(
             <StyledEmptyContainer>
-                <StyledEmptyText>Location was not found.</StyledEmptyText>
+                <StyledEmptyText>Location has not ben registered yet.</StyledEmptyText>
             </StyledEmptyContainer>    
         )
     };

@@ -3,14 +3,14 @@ import { Locations } from '../Locations'
 
 export const AppContext = createContext({
     filteredLocations: [],
-    currentLocation: null,
-    setCurrentLocation: () => {},
+    destination: null,
+    setDestination: (destination) => {},
     searchLocation: (location) => {}
 })
 
 export const AppContextProvider = ({children}) => {
     const [filteredLocations, setFilteredLocations] = useState([])
-    const [currentLocation, setCurrentLocation] = useState(null)
+    const [destination, setDestination] = useState(null)
 
     const searchLocation = (currentKey) => {
         const currentLocations = Locations.filter(location => location.name.toLowerCase().includes(currentKey.toLowerCase()))
@@ -19,9 +19,9 @@ export const AppContextProvider = ({children}) => {
     }
 
     const value = {
-        currentLocation,
+        destination,
         filteredLocations,
-        setCurrentLocation,
+        setDestination,
         searchLocation
     }
 

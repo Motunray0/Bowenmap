@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 import {useFonts as usePoppins, Poppins_400Regular} from '@expo-google-fonts/poppins'
 import { AppContextProvider } from './src/Services/Contexts/App.context';
 import { Navigation } from './src/Infrastructure/Navigation/Navigation';
-import {View, Text} from 'react-native'
 import 'react-native-gesture-handler';
 
 const App = () => {

@@ -5,19 +5,32 @@ import {
     StyledLandMarkImage,
     StyledLandMarkName,
     StyledTitle,
-    StyledActionBar
+    StyledActionBar,
+    StyledTouchable
 } from './LocationCarousel.style'
 import { Dimensions, Animated } from 'react-native';
 import { Locations } from '../../../../Services/Locations';
 import Carousel from 'react-native-reanimated-carousel';
-import {View, Text} from 'react-native'
-
 
 const { width: screenWidth } = Dimensions.get('window');
-const itemWidth = screenWidth / 3;
 
-const LocationCarouselComponent = () => {
-    // const carouselRef = useRef(null);
+const LocationCarouselComponent = ({navigation}) => {
+
+    const handleLocationSelection = (item) => {
+        // setCurrentLocation(item)
+        navigation.navigate("location", {location: item})
+    }    
+
+    const renderItem = () => {
+        return(
+            <StyledTouchable onPress={()=>handleLocationSelection(item)}>
+                <StyledCarouselItem>
+                    <StyledLandMarkImage source={item.image} />
+                    <StyledLandMarkName>{item.name}</StyledLandMarkName>
+                </StyledCarouselItem>
+            </StyledTouchable>
+        )
+    }
 
     return (
         <StyledCarouselContainer>
@@ -28,13 +41,18 @@ const LocationCarouselComponent = () => {
                 height={screenWidth / 2}
                 data={Locations}
                 scrollAnimationDuration={1000}
-                itemWidth={itemWidth} // Set item width to display 3 items in view
-                sliderWidth={screenWidth}
+                mode="parallax"
+                modeConfig={{
+                    parallaxScrollingScale: 1.0,
+                    parallaxScrollingOffset: 250,
+                }}
                 renderItem={({item}) => (
-                    <StyledCarouselItem>
-                        <StyledLandMarkImage source={item.image} />
-                        <StyledLandMarkName>{item.name}</StyledLandMarkName>
-                    </StyledCarouselItem>
+                    <StyledTouchable onPress={()=>handleLocationSelection(item)}>
+                        <StyledCarouselItem>
+                            <StyledLandMarkImage source={item.image} />
+                            <StyledLandMarkName>{item.name}</StyledLandMarkName>
+                        </StyledCarouselItem>
+                    </StyledTouchable>
                 )}
             />
         </StyledCarouselContainer>

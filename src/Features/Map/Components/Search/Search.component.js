@@ -5,7 +5,7 @@ import {Keyboard} from 'react-native'
 import LocationsList from '../LocationsList/LocationsList.component'
 
 
-const SearchComponent = () => {
+const SearchComponent = ({navigation}) => {
     const [searchKey, setSearchKey] = useState('')
     const {searchLocation} = useAppContext()
 
@@ -32,7 +32,7 @@ const SearchComponent = () => {
                     color: 'rgba(110, 110, 110, 1)'
                 }}
             />
-            {searchKey !== '' && <LocationsList/>}
+            {searchKey !== '' && <LocationsList navigation={navigation} />}
         </StyledSearchContainer>    
     )
 }

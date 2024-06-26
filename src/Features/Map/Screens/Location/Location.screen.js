@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { 
     StyledCard, 
     StyledCloseButton, 
@@ -9,55 +9,66 @@ import {
     StyledTitle,
     StyledSubTitle,
     StyledTripDetail,
-    StyledTripDetails 
+    StyledTripDetails,
+    StyledButtonText,
+    StyledCardHead 
 } from './Location.styles'
 import { StyledAreaView } from '../../../../Components/SafeArea.component'
+import { useAppContext } from '../../../../Services/Hooks/useAppContext'
 
-const LocationScreen = ({route}) => {
-    const [visible, setVisible] = useState(true)
+const LocationScreen = ({route, navigation}) => {
+    const {setDestination} = useAppContext()
 
-    const location = route.params
-    
-    if(!visible){
-        return null
+    const { location } = route.params
+    const { name, image, about } = location
+
+    const getDirection = () => {
+        setDestination(location)
+        navigation.navigate("map")
     }
-    else{
-        return (
-            <StyledAreaView>
-                <StyledCard elevation={2}>
+
+    const goBack = () => {
+        navigation.navigate("map")
+    }
+    
+    return (
+        <StyledAreaView>
+            <StyledCard>
+                <StyledCardHead>
+                
+                    <StyledTitle>{name}</StyledTitle>
+
                     <StyledCloseButton 
                         name="close" 
-                        size={24} 
+                        size={40} 
                         color='black' 
-                        onPress={()=>setVisible(false)}
+                        onPress={goBack}
                     />
 
-                    <StyledTitle></StyledTitle>
-                    
-                    <StyledLocationDetails>
-                        <StyledImage/>
-                        <StyledTripDetails>
-                            <StyledTripDetail></StyledTripDetail>
-                            <StyledTripDetail></StyledTripDetail>
-                            <StyledTripDetail></StyledTripDetail>
-                        </StyledTripDetails>
-                    </StyledLocationDetails>
+                </StyledCardHead>
+                
+                
+                <StyledLocationDetails>
+                    <StyledImage source={image}/>
+                    <StyledTripDetails>
+                        <StyledTripDetail></StyledTripDetail>
+                        <StyledTripDetail></StyledTripDetail>
+                        <StyledTripDetail></StyledTripDetail>
+                    </StyledTripDetails>
+                </StyledLocationDetails>
 
-                    <StyledSubTitle>About</StyledSubTitle>
+                <StyledSubTitle>About</StyledSubTitle>
 
-                    <StyledInfo></StyledInfo>
+                <StyledInfo>{about}</StyledInfo>
 
-                    <StyledStartButton
-                        mode="contained"
-                        onPress={()=>{}}
-                    >
-                        Get Direction
-                    </StyledStartButton>
+                <StyledStartButton onPress={getDirection}>
+                    <StyledButtonText>Get Direction</StyledButtonText>
+                </StyledStartButton>
 
-                </StyledCard>
-            </StyledAreaView>
-        )
-    }
+            </StyledCard>
+        </StyledAreaView>
+    )
 }
+
 
 export default LocationScreen

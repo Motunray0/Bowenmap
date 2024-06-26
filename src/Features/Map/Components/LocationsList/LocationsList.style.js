@@ -2,17 +2,24 @@ import styled from 'styled-components/native'
 import {Text, Image, View, FlatList, TouchableOpacity} from 'react-native';
 
 export const StyledName = styled(Text)`
-
+    font-weight: 600;
+    font-size: 16px;
 `
 export const StyledEmptyText = styled(Text)`
     text-align: center;
+    font-size: 18px;
+    font-weight: 600;
     margin-top: 110px;
 `
 export const StyledImage = styled(Image)`
-
+    width: 50px;
+    height: 50px;
 `
 export const StyledListItem = styled(View)`
-
+    flex: 1;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center
 `
 export const StyledEmptyContainer = styled(View)`
 `
