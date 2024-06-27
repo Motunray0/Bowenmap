@@ -17,7 +17,6 @@ const { width: screenWidth } = Dimensions.get('window');
 const LocationCarouselComponent = ({navigation}) => {
 
     const handleLocationSelection = (item) => {
-        // setCurrentLocation(item)
         navigation.navigate("location", {location: item})
     }    
 

@@ -3,10 +3,10 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { useAppContext } from '../../../../Services/Hooks/useAppContext';
 import MapViewDirections from 'react-native-maps-directions';
+import { GOOGLE_MAPS_APIKEY } from '@env';
 import * as Location from 'expo-location';
 import axios from 'axios'
 
-const GOOGLE_MAPS_APIKEY = 'AIzaSyBuMOQ-CBlb_jx33Y4IYXJcEpg5xojmUZE';
 
 const MapComponent = () => {
     const [region, setRegion] = useState(null);
@@ -123,7 +123,7 @@ const MapComponent = () => {
                     {currentLocation && destination && (
                         <MapViewDirections
                             origin={currentLocation}
-                            destination={destination}
+                            destination={destination.coordinates}
                             apikey={GOOGLE_MAPS_APIKEY}
                             strokeWidth={3}
                             strokeColor="hotpink"
@@ -140,15 +140,15 @@ const MapComponent = () => {
                         />
                     )}
                     {destination && (
-                        <Marker coordinate={destination} title="Destination" />
+                        <Marker coordinate={destination.coordinates} title="Destination" />
                     )}
-                    {/* {route && (
+                    {route && (
                         <Polyline
                             coordinates={route}
                             strokeColor="hotpink"
                             strokeWidth={3}
                         />
-                    )} */}
+                    )}
                 </MapView>
             )}
         </View>
